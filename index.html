@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Fire Sensitivity Pro</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#080510;color:white;font-family:Arial,sans-serif;
+ min-height:100vh;overflow-x:hidden;
+}
+
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;
+ background:
+ radial-gradient(circle at 20% 20%,#ff006655,transparent 40%),
+ radial-gradient(circle at 80% 80%,#6500ff66,transparent 45%);
+}
+
+.container{max-width:550px;margin:auto;padding:18px}
+header{text-align:center;padding:20px}
+header h1{color:#ff2866;text-shadow:0 0 20px red}
+header p{color:#00eaff;margin-top:8px}
+
+.panel{
+ background:#171426;border:1px solid #51406b;
+ border-radius:22px;padding:22px;box-shadow:0 0 25px #000;
+}
+
+.cover{
+ position:fixed;inset:0;z-index:10;
+ background:radial-gradient(circle,#42104f,#080510);
+ display:flex;align-items:center;justify-content:center;
+ text-align:center;padding:20px;
+}
+
+.cover h1{font-size:38px;color:#ff2866}
+.cover h2{color:#00eaff;letter-spacing:4px;margin:12px}
+.biglogo{font-size:100px;animation:float 2s infinite}
+
+@keyframes float{
+ 50%{transform:translateY(-18px) rotate(8deg)}
+}
+
+button{
+ border:1px solid #51406b;border-radius:13px;
+ padding:15px;background:#29223d;color:white;
+ font-weight:bold;cursor:pointer;transition:.25s;
+}
+
+button:active{transform:scale(.94)}
+button:hover{box-shadow:0 0 18px #00eaff}
+button:disabled{opacity:.4;cursor:not-allowed}
+
+.main{
+ background:linear-gradient(45deg,#ff1765,#8500ff);
+ border:0;
+}
+
+.start{font-size:20px;margin-top:25px;padding:18px 35px}
+
+.progress{
+ height:9px;background:#30283e;border-radius:20px;
+ overflow:hidden;margin-bottom:25px;
+}
+
+.bar{
+ height:100%;width:0%;
+ background:linear-gradient(90deg,#00eaff,#ff1765);
+ transition:.4s;
+}
+
+.step{display:none}
+.step.active{display:block;animation:enter .5s}
+
+@keyframes enter{
+ from{opacity:0;transform:translateY(30px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+h2{color:#00eaff;margin-bottom:14px}
+.desc{color:#bbb;line-height:1.6;font-size:14px}
+
+.options{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;margin-top:20px;
+}
+
+.option{min-height:65px}
+.option strong{display:block;color:#00eaff;margin-top:7px}
+
+.option.selected{
+ border:2px solid #00eaff;background:#103b48;
+ box-shadow:0 0 16px #00eaff;
+}
+
+input,select{
+ width:100%;padding:14px;margin:10px 0;
+ border:1px solid #00eaff;border-radius:10px;
+ background:#100e1d;color:white;
+}
+
+.actions{display:flex;gap:12px;margin-top:22px}
+.actions button{flex:1}
+
+.notice{
+ background:#29223c;border-radius:13px;
+ padding:15px;margin:15px 0;color:#ddd;line-height:1.6;
+}
+
+#error{color:#ff638e;margin-top:12px;font-size:13px}
+
+#loading{
+ display:none;position:fixed;inset:0;z-index:20;
+ background:radial-gradient(circle,#48104e,#080510);
+ flex-direction:column;align-items:center;
+ justify-content:center;text-align:center;padding:20px;
+}
+
+#tung{font-size:145px;animation:spin .45s linear infinite}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.fire{font-size:30px;animation:fire 1s infinite alternate}
+
+@keyframes fire{
+ to{transform:scale(1.3);filter:brightness(1.8)}
+}
+
+.loadingbar{
+ width:85%;max-width:350px;height:15px;
+ border:1px solid #ff35dc;border-radius:20px;
+ overflow:hidden;margin:22px;
+}
+
+#fill{
+ width:0;height:100%;
+ background:linear-gradient(90deg,#00eaff,#ff00dd);
+ transition:.15s;
+}
+
+#percent{font-size:25px;color:#00eaff}
+
+#results{display:none;animation:enter .5s}
+.resultTitle{text-align:center;color:#ff2866}
+
+.value{
+ background:#29223c;padding:14px;
+ border-radius:12px;margin:13px 0;
+}
+
+.valueTop{
+ display:flex;justify-content:space-between;margin-bottom:9px;
+}
+
+.valueTop strong{color:#ff4c91;font-size:20px}
+
+.track{
+ height:12px;background:#090713;border-radius:20px;overflow:hidden;
+}
+
+.track div{
+ height:100%;background:linear-gradient(90deg,#ff1765,#ff8cbb);
+}
+
+.dpi{
+ text-align:center;padding:20px;background:#29223c;
+ border-radius:15px;margin:15px 0;
+}
+
+.dpi strong{
+ display:block;font-size:35px;color:#ff2866;
+}
+
+.firebutton{
+ width:120px;height:120px;border:3px solid #ff2866;
+ border-radius:50%;display:grid;place-items:center;
+ margin:20px auto;font-size:42px;box-shadow:0 0 25px #ff2866;
+}
+
+.config{
+ background:#29223c;padding:14px;border-radius:10px;
+ display:flex;justify-content:space-between;
+ margin:10px 0;gap:10px;
+}
+
+.config strong{color:#00eaff}
+.copy,.restart{width:100%;margin-top:13px}
+.note{color:#999;font-size:12px;line-height:1.6;margin-top:15px}
+
+/* PREMIUM */
+
+.premium-button{
+ width:100%;margin-top:22px;padding:19px;
+ border:2px solid #ffd700;border-radius:16px;
+ background:linear-gradient(110deg,#754000,#ffd700,#9c5700);
+ color:white;font-size:20px;font-weight:bold;
+ box-shadow:0 0 20px #ffd70088;
+ animation:goldGlow 1.3s infinite alternate;
+}
+
+.premium-button span,.ultra-button span{
+ display:block;font-size:12px;margin-top:8px;letter-spacing:2px;
+}
+
+@keyframes goldGlow{
+ to{box-shadow:0 0 30px gold,0 0 55px #ff9900;transform:scale(1.02)}
+}
+
+#premiumScreen,#ultraScreen,#adbScreen{
+ display:none;position:fixed;inset:0;
+ overflow-y:auto;text-align:center;padding:25px 18px;
+}
+
+#premiumScreen{
+ z-index:50;
+ background:radial-gradient(circle at 50% 20%,#765000,#211000 45%,#080510 85%);
+}
+
+#premiumScreen h1{
+ color:#ffd700;text-shadow:0 0 20px gold;margin:12px 0;
+}
+
+.premium-crown{
+ font-size:105px;display:block;
+ animation:crownSpin 2s linear infinite;
+ filter:drop-shadow(0 0 25px gold);
+}
+
+@keyframes crownSpin{
+ 0%{transform:rotateY(0) scale(1)}
+ 50%{transform:rotateY(180deg) scale(1.15)}
+ 100%{transform:rotateY(360deg) scale(1)}
+}
+
+.premium-fire{font-size:30px;animation:fire 1s infinite alternate}
+.premium-subtitle{color:#ffe99a;margin:12px 0 20px}
+
+.premium-value{
+ background:linear-gradient(120deg,#30200b,#49300d);
+ border:1px solid #ffd700;border-radius:13px;
+ padding:15px;margin:12px 0;box-shadow:0 0 13px #ffd70055;
+}
+
+.premium-value-top{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+
+.premium-value strong{color:#ffd700;font-size:24px}
+
+.premium-track,.ultra-track{
+ height:11px;background:#120d08;border-radius:20px;
+ overflow:hidden;margin-top:12px;
+}
+
+.premium-track div{
+ height:100%;background:linear-gradient(90deg,#ff9100,#ffe600);
+}
+
+.premium-copy{
+ width:100%;margin-top:20px;
+ background:linear-gradient(45deg,#a35c00,#ffd700);
+ border:1px solid gold;color:#241300;
+}
+
+.premium-close{
+ width:100%;margin-top:12px;background:#30243b;
+}
+
+.premium-label{
+ display:inline-block;padding:8px 15px;
+ border:1px solid gold;border-radius:30px;
+ color:#ffd700;margin:10px;
+}
+
+/* ULTRA */
+
+.ultra-button{
+ width:100%;margin-top:20px;padding:20px;
+ border:2px solid #ff4500;border-radius:16px;
+ background:linear-gradient(120deg,#ff0000,#ff7300,#ffd700);
+ color:white;font-size:20px;font-weight:bold;
+ box-shadow:0 0 25px #ff4500;
+ animation:ultraGlow 1s infinite alternate;
+}
+
+@keyframes ultraGlow{
+ to{box-shadow:0 0 35px #ff4500,0 0 50px gold;transform:scale(1.02)}
+}
+
+#ultraScreen{
+ z-index:100;
+ background:radial-gradient(circle,#701000,#200000,#080510);
+}
+
+#ultraScreen h1{
+ color:#ff4500;text-shadow:0 0 20px red;margin:15px 0;
+}
+
+.ultra-value{
+ background:#29100d;border:1px solid #ff4500;
+ border-radius:14px;padding:16px;margin:12px 0;
+ box-shadow:0 0 15px #ff450055;
+}
+
+.ultra-value-top{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+
+.ultra-value strong{color:#ff7300;font-size:27px}
+
+.ultra-track{background:#100605}
+.ultra-track div{
+ height:100%;background:linear-gradient(90deg,red,#ff7300,gold);
+}
+
+.ultra-copy{
+ width:100%;margin-top:15px;
+ background:linear-gradient(45deg,#ff0000,#ff7300);
+ border:1px solid gold;
+}
+
+.tung-ultra{
+ font-size:110px;display:block;margin:20px auto;
+ cursor:pointer;animation:float 1.5s infinite;
+ filter:drop-shadow(0 0 25px red);
+}
+
+.ultra-return{
+ background:transparent;border:0;width:100%;
+}
+
+/* BREVENT */
+
+#adbScreen{
+ z-index:150;
+ background:radial-gradient(circle at top,#063b3d,#080510 75%);
+}
+
+#adbScreen h1{
+ color:#00eaff;text-shadow:0 0 20px #00eaff;margin:15px 0;
+}
+
+.adb-card{
+ background:#101d25;border:1px solid #00eaff;
+ border-radius:15px;padding:15px;margin:15px 0;text-align:left;
+ box-shadow:0 0 15px #00eaff33;
+}
+
+.adb-card h2{text-align:center;color:#00eaff}
+
+.adb-code{
+ white-space:pre-wrap;overflow-wrap:anywhere;
+ background:#05090d;color:#00ff9d;padding:14px;
+ border-radius:10px;font-size:13px;line-height:1.7;margin:12px 0;
+}
+
+.adb-copy{
+ width:100%;background:linear-gradient(45deg,#007b83,#00d9ff);
+ border:0;color:#001317;
+}
+
+.adb-warning{
+ color:#ffd477;font-size:13px;line-height:1.6;margin-top:15px;
+}
+
+.adb-label{
+ color:#8df8ff;font-size:12px;letter-spacing:1px;margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cover" id="cover">
+ <div>
+  <div class="biglogo">🎮</div>
+  <h1>FREE FIRE</h1>
+  <h2>SENSITIVITY PRO</h2>
+  <p>🔥 TUNG TUNG SAHUR EDITION 🔥</p>
+  <button class="main start" onclick="start()">🚀 COMENZAR</button>
+ </div>
+</div>
+
+<div class="container">
+
+<header>
+ <h1>🔥 FREE FIRE</h1>
+ <p>SENSITIVITY PRO</p>
+</header>
+
+<div class="panel" id="wizard">
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<section class="step active">
+ <h2>📱 ¿Qué dispositivo utilizas?</h2>
+ <p class="desc">Selecciona tu sistema operativo.</p>
+ <div class="options">
+  <button class="option" data-g="device" data-v="Android">🤖 ANDROID</button>
+  <button class="option" data-g="device" data-v="iPhone">🍎 IPHONE</button>
+  <button class="option" data-g="device" data-v="iPad">📲 IPAD</button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>📡 Confirma tu dispositivo</h2>
+ <p class="desc">Selecciona la marca y escribe el modelo.</p>
+ <button class="main" onclick="detect()">📡 DETECTAR DISPOSITIVO</button>
+ <div class="notice" id="detection">Esperando detección...</div>
+ <select id="brand">
+  <option value="">Selecciona tu marca</option>
+  <option>Samsung</option><option>Xiaomi</option>
+  <option>Redmi</option><option>POCO</option>
+  <option>Motorola</option><option>OPPO</option>
+  <option>Realme</option><option>Huawei</option>
+  <option>Honor</option><option>Apple</option>
+  <option>Otra marca</option>
+ </select>
+ <input id="model" placeholder="Escribe tu modelo">
+</section>
+
+<section class="step">
+ <h2>🎯 Nivel de sensibilidad</h2>
+ <p class="desc">Elige tu estilo de juego.</p>
+ <div class="options">
+  <button class="option" data-g="level" data-v="Baja">🐢 BAJA<strong>Más control</strong></button>
+  <button class="option" data-g="level" data-v="Estándar">⚖️ ESTÁNDAR<strong>Equilibrio</strong></button>
+  <button class="option" data-g="level" data-v="Alta">⚡ ALTA<strong>Más velocidad</strong></button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🔴 Tamaño del botón de disparo</h2>
+ <div class="options">
+  <button class="option" data-g="fire" data-v="35">PEQUEÑO<strong>35%</strong></button>
+  <button class="option" data-g="fire" data-v="45">MEDIANO<strong>45%</strong></button>
+  <button class="option" data-g="fire" data-v="55">GRANDE<strong>55%</strong></button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>⚙️ ¿Quieres usar DPI?</h2>
+ <div class="options">
+  <button class="option" data-g="dpi" data-v="si">✅ CON DPI</button>
+  <button class="option" data-g="dpi" data-v="no">❌ SIN DPI</button>
+ </div>
+ <div id="dpiOptions" style="display:none">
+  <p class="desc">Elige un valor orientativo.</p>
+  <div class="options">
+   <button class="option" data-g="dpiValue" data-v="400">400</button>
+   <button class="option" data-g="dpiValue" data-v="450">450</button>
+   <button class="option" data-g="dpiValue" data-v="500">500</button>
+   <button class="option" data-g="dpiValue" data-v="550">550</button>
+  </div>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🖐️ ¿A cuántos dedos juegas?</h2>
+ <div class="options">
+  <button class="option" data-g="fingers" data-v="2">✌️ DOS</button>
+  <button class="option" data-g="fingers" data-v="3">🤟 TRES</button>
+  <button class="option" data-g="fingers" data-v="4">🖐️ CUATRO</button>
+  <button class="option" data-g="fingers" data-v="5">🔥 CINCO</button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🎮 ¿Qué versión juegas?</h2>
+ <div class="options">
+  <button class="option" data-g="game" data-v="Free Fire">🔥 FREE FIRE</button>
+  <button class="option" data-g="game" data-v="Free Fire MAX">💎 FREE FIRE MAX</button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🛠️ Configuración interna</h2>
+ <div class="options">
+  <button class="option" data-g="internal" data-v="si">✅ CON AJUSTES</button>
+  <button class="option" data-g="internal" data-v="no">❌ SIN AJUSTES</button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🏆 Preferencias de juego</h2>
+ <p class="desc">Elige tus preferencias.</p>
+ <div class="options">
+  <button class="option" data-g="head" data-v="si">🎯 SEGUIMIENTO ACTIVADO</button>
+  <button class="option" data-g="head" data-v="no">SEGUIMIENTO DESACTIVADO</button>
+  <button class="option" data-g="shake" data-v="si">🛡️ TAMBALEO ACTIVADO</button>
+  <button class="option" data-g="shake" data-v="no">TAMBALEO DESACTIVADO</button>
+ </div>
+</section>
+
+<section class="step">
+ <h2>🔥 ¡TODO LISTO!</h2>
+ <div class="notice">Tus respuestas están listas. ¡Genera tu sensibilidad!</div>
+ <button class="main" style="width:100%" onclick="generate()">🚀 GENERAR SENSIBILIDAD</button>
+</section>
+
+<div class="actions">
+ <button id="back" onclick="move(-1)">⬅️ ATRÁS</button>
+ <button class="main" id="next" onclick="move(1)">CONTINUAR ➡️</button>
+</div>
+<p id="error"></p>
+
+</div>
+
+<!-- RESULTADOS -->
+
+<div class="panel" id="results">
+ <h2 class="resultTitle">🔥 TU SENSIBILIDAD ESTÁ LISTA 🔥</h2>
+ <div class="notice">🏆 Configuración generada. ¡Pruébala en entrenamiento!</div>
+ <div id="summary"></div>
+ <div id="dpiResult"></div>
+ <h3 style="color:#ff2866;margin:20px 0">🎯 VALORES DE SENSIBILIDAD</h3>
+ <div id="values"></div>
+ <div id="fireResult"></div>
+ <div id="internalResult"></div>
+
+ <button class="main copy" onclick="copyResult()">📋 COPIAR CONFIGURACIÓN NORMAL</button>
+
+ <button class="premium-button" onclick="activatePremium()">
+  👑 HABILIDAD PREMIUM
+  <span>✨ SENSIBILIDAD EXCLUSIVA ✨</span>
+ </button>
+
+ <button class="restart" onclick="location.reload()">🔄 VOLVER A COMENZAR</button>
+ <p class="note">Estos valores son orientativos. No modifican el juego automáticamente ni garantizan disparos a la cabeza.</p>
+</div>
+</div>
+
+<!-- CARGANDO -->
+
+<div id="loading">
+ <div class="fire">🔥 🔥 🔥</div>
+ <div id="tung">🗿</div>
+ <h2 style="color:#ff35dc;margin:20px">¡TUNG TUNG TUNG SAHUR!</h2>
+ <p id="loadingText">Calculando tu sensibilidad...</p>
+ <div class="loadingbar"><div id="fill"></div></div>
+ <div id="percent">0%</div>
+ <div class="fire">🔥 🔥 🔥</div>
+</div>
+
+<!-- PREMIUM -->
+
+<div id="premiumScreen">
+ <div class="premium-fire">🔥 ✨ 🔥</div>
+ <div class="premium-crown">👑</div>
+ <div class="premium-label">MODO PREMIUM</div>
+ <h1>¡PREMIUM ACTIVADO!</h1>
+ <p class="premium-subtitle">💎 SENSIBILIDAD ESPECIAL PRO 💎</p>
+ <p>🔥 TUNG TUNG SAHUR EDITION 🔥</p>
+
+ <h2 style="color:#ffd700;margin:25px 0 15px">🎯 TUS VALORES PREMIUM</h2>
+ <div id="premiumValues"></div>
+
+ <div class="notice" style="border:1px solid gold">
+  👑 Configuración orientativa personalizada. Pruébala en entrenamiento.
+ </div>
+
+ <button class="premium-copy" onclick="copyPremium()">📋 COPIAR SENSIBILIDAD PREMIUM</button>
+
+ <button class="ultra-button" onclick="activateUltra()">
+  🔥 ULTRA SUPER PREMIUM 🔥
+  <span>👑 SENSIBILIDAD SECRETA EXCLUSIVA 👑</span>
+ </button>
+
+ <button class="premium-close" onclick="closePremium()">↩️ VOLVER A RESULTADOS</button>
+</div>
+
+<!-- ULTRA -->
+
+<div id="ultraScreen">
+ <div class="premium-fire">🔥 🔥 🔥</div>
+ <div class="premium-crown">👑</div>
+
+ <h1>ULTRA SUPER PREMIUM</h1>
+
+ <p style="color:gold;margin:15px">
+  🏆 NIVEL MÁXIMO DESBLOQUEADO 🏆
+ </p>
+
+ <h2 style="color:#ff7300;margin:25px 0">
+  🎯 TU SENSIBILIDAD ULTRA
+ </h2>
+
+ <div id="ultraValues"></div>
+
+ <div class="notice" style="border:1px solid #ff4500">
+  🔥 Configuración Ultra personalizada para tu dispositivo.
+ </div>
+
+ <button class="ultra-copy" onclick="copyUltra()">
+  📋 COPIAR SENSIBILIDAD ULTRA
+ </button>
+
+ <button class="ultra-button" onclick="showADB()">
+  🚀 BREVENT FINAL COMMANDS
+ </button>
+
+ <h2 style="color:gold;margin-top:30px">🗿 TUNG TUNG SAHUR 🗿</h2>
+
+ <button class="ultra-return" onclick="goHome()">
+  <span class="tung-ultra">🗿</span>
+  <strong style="color:#ffd700;font-size:18px">
+   ¡TOCA A TUNG TUNG PARA VOLVER AL PRINCIPIO!
+  </strong>
+ </button>
+
+ <button class="premium-close" onclick="closeUltra()">
+  ↩️ VOLVER A PREMIUM
+ </button>
+</div>
+
+<!-- BREVENT FINAL COMMANDS -->
+
+<div id="adbScreen">
+ <div class="premium-fire">🚀 ⚙️ 🚀</div>
+ <h1>BREVENT FINAL COMMANDS</h1>
+ <p style="color:#00eaff">COMANDOS DE ANIMACIÓN DE ANDROID</p>
+
+ <div class="adb-card">
+  <h2>⚡ ANIMACIÓN DE VENTANAS</h2>
+  <div class="adb-label">VALOR 0.5</div>
+  <pre class="adb-code" id="cmd1">settings put global window_animation_scale 0.5</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd1')">📋 COPIAR</button>
+ </div>
+
+ <div class="adb-card">
+  <h2>⚡ ANIMACIÓN DE TRANSICIÓN</h2>
+  <div class="adb-label">VALOR 0.5</div>
+  <pre class="adb-code" id="cmd2">settings put global transition_animation_scale 0.5</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd2')">📋 COPIAR</button>
+ </div>
+
+ <div class="adb-card">
+  <h2>⚡ DURACIÓN DEL ANIMADOR</h2>
+  <div class="adb-label">VALOR 0.5</div>
+  <pre class="adb-code" id="cmd3">settings put global animator_duration_scale 0.5</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd3')">📋 COPIAR</button>
+ </div>
+
+ <div class="adb-card">
+  <h2>🔄 RESTAURAR VENTANAS</h2>
+  <div class="adb-label">VALOR 1</div>
+  <pre class="adb-code" id="cmd4">settings put global window_animation_scale 1</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd4')">📋 COPIAR</button>
+ </div>
+
+ <div class="adb-card">
+  <h2>🔄 RESTAURAR TRANSICIONES</h2>
+  <div class="adb-label">VALOR 1</div>
+  <pre class="adb-code" id="cmd5">settings put global transition_animation_scale 1</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd5')">📋 COPIAR</button>
+ </div>
+
+ <div class="adb-card">
+  <h2>🔄 RESTAURAR ANIMADOR</h2>
+  <div class="adb-label">VALOR 1</div>
+  <pre class="adb-code" id="cmd6">settings put global animator_duration_scale 1</pre>
+  <button class="adb-copy" onclick="copyCommand('cmd6')">📋 COPIAR</button>
+ </div>
+
+ <div class="notice">
+  <strong style="color:#ffd700">⚠️ IMPORTANTE</strong>
+  <p class="adb-warning">
+   Copia cada comando y ejecútalo en Brevent con los permisos correspondientes.
+   Esta página solo copia texto, no ejecuta comandos dentro de Brevent.
+   Estos ajustes cambian las animaciones de Android; no garantizan más FPS.
+  </p>
+ </div>
+
+ <button class="ultra-button" onclick="closeADB()">↩️ VOLVER A ULTRA</button>
+</div>
+
+<script>
+let current=0;
+
+const steps=document.querySelectorAll(".step");
+const data={};
+
+let finalText="";
+let premiumText="";
+let ultraText="";
+
+const names=[
+ "General",
+ "Punto rojo",
+ "Mira 2x",
+ "Mira 4x",
+ "Francotirador",
+ "Cámara 360°"
+];
+
+const clamp=n=>Math.max(0,Math.min(200,Math.round(n)));
+
+function start(){
+ document.getElementById("cover").style.display="none";
+ update();
+}
+
+/* SELECCIÓN DE RESPUESTAS */
+
+document.querySelectorAll("[data-g]").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  const g=btn.dataset.g;
+
+  document.querySelectorAll('[data-g="'+g+'"]')
+   .forEach(b=>b.classList.remove("selected"));
+
+  btn.classList.add("selected");
+  data[g]=btn.dataset.v;
+
+  if(g==="dpi"){
+   document.getElementById("dpiOptions").style.display=
+    data.dpi==="si"?"block":"none";
+
+   if(data.dpi==="no"){
+    delete data.dpiValue;
+    document.querySelectorAll('[data-g="dpiValue"]')
+     .forEach(b=>b.classList.remove("selected"));
+   }
+  }
+ });
+});
+
+/* DETECTAR DISPOSITIVO */
+
+function detect(){
+ const ua=navigator.userAgent;
+
+ const d=/iPhone/i.test(ua)?"iPhone":
+         /iPad/i.test(ua)?"iPad":
+         /Android/i.test(ua)?"Android":"No identificado";
+
+ document.getElementById("detection").textContent=
+  "Sistema detectado: "+d+". Confirma tu marca y modelo.";
+
+ if(d!=="No identificado"){
+  data.device=d;
+
+  document.querySelectorAll('[data-g="device"]').forEach(b=>{
+   b.classList.toggle("selected",b.dataset.v===d);
+  });
+ }
+}
+
+/* VALIDACIÓN */
+
+function validate(){
+
+ if(current===0)return !!data.device;
+
+ if(current===1){
+  data.brand=document.getElementById("brand").value;
+  data.model=document.getElementById("model").value.trim();
+
+  return !!data.brand&&!!data.model;
+ }
+
+ if(current===2)return !!data.level;
+ if(current===3)return !!data.fire;
+
+ if(current===4){
+  return !!data.dpi&&(data.dpi==="no"||!!data.dpiValue);
+ }
+
+ if(current===5)return !!data.fingers;
+ if(current===6)return !!data.game;
+ if(current===7)return !!data.internal;
+
+ if(current===8)return !!data.head&&!!data.shake;
+
+ return true;
+}
+
+function allAnswersValid(){
+ const oldCurrent=current;
+
+ for(let i=0;i<9;i++){
+  current=i;
+  if(!validate()){
+   current=oldCurrent;
+   return false;
+  }
+ }
+
+ current=oldCurrent;
+ return true;
+}
+
+/* NAVEGACIÓN */
+
+function update(){
+ steps.forEach((s,i)=>s.classList.toggle("active",i===current));
+
+ document.getElementById("bar").style.width=
+  ((current+1)/steps.length*100)+"%";
+
+ document.getElementById("back").disabled=current===0;
+
+ document.getElementById("next").style.display=
+  current===steps.length-1?"none":"block";
+
+ document.getElementById("error").textContent="";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function move(dir){
+
+ if(dir===1&&!validate()){
+  document.getElementById("error").textContent=
+   "⚠️ Selecciona una opción o completa los datos.";
+  return;
+ }
+
+ current+=dir;
+ update();
+}
+
+/* GENERAR */
+
+function generate(){
+
+ if(!allAnswersValid()){
+  document.getElementById("error").textContent=
+   "⚠️ Regresa y completa todas las preguntas.";
+  return;
+ }
+
+ document.getElementById("wizard").style.display="none";
+
+ const loading=document.getElementById("loading");
+ loading.style.display="flex";
+
+ document.getElementById("fill").style.width="0%";
+ document.getElementById("percent").textContent="0%";
+
+ let p=0;
+
+ const phrases=[
+  "Calculando sensibilidad...",
+  "Analizando tu dispositivo...",
+  "Preparando las miras...",
+  "Personalizando configuración...",
+  "¡Casi listo!"
+ ];
+
+ const timer=setInterval(()=>{
+  p+=2;
+
+  document.getElementById("fill").style.width=p+"%";
+  document.getElementById("percent").textContent=p+"%";
+
+  if(p%20===0){
+   document.getElementById("loadingText").textContent=
+    phrases[Math.min(p/20-1,4)];
+  }
+
+  if(p>=100){
+   clearInterval(timer);
+   calculate();
+
+   loading.style.display="none";
+   document.getElementById("results").style.display="block";
+
+   window.scrollTo({top:0,behavior:"smooth"});
+  }
+ },70);
+}
+
+/* CÁLCULO PERSONALIZADO */
+
+function calculate(){
+
+ // BASE SEGÚN NIVEL
+ const levelBase={
+  Baja:90,
+  Estándar:115,
+  Alta:140
+ };
+
+ // DIFERENCIA POR SISTEMA
+ const deviceBonus={
+  Android:3,
+  iPhone:6,
+  iPad:9
+ };
+
+ // DIFERENCIA POR DEDOS
+ const fingerBonus={
+  "2":-7,
+  "3":0,
+  "4":7,
+  "5":12
+ };
+
+ // DIFERENCIA POR BOTÓN
+ const fireBonus={
+  "35":-6,
+  "45":0,
+  "55":6
+ };
+
+ // DIFERENCIA POR DPI
+ const dpiBonus={
+  "400":-6,
+  "450":-3,
+  "500":3,
+  "550":6
+ };
+
+ // IDENTIFICADOR DEL MODELO
+ const identity=(
+  (data.brand||"")+
+  (data.model||"")+
+  (data.device||"")+
+  (data.game||"")
+ ).toLowerCase();
+
+ let modelBonus=0;
+
+ for(let i=0;i<identity.length;i++){
+  modelBonus+=identity.charCodeAt(i)*(i+1);
+ }
+
+ modelBonus=(modelBonus%11)-5;
+
+ // SUMAR RESPUESTAS
+ let bonus=0;
+
+ bonus+=deviceBonus[data.device]||0;
+ bonus+=fingerBonus[data.fingers]||0;
+ bonus+=fireBonus[data.fire]||0;
+ bonus+=modelBonus;
+
+ if(data.dpi==="si"){
+  bonus+=dpiBonus[data.dpiValue]||0;
+ }
+
+ if(data.game==="Free Fire MAX")bonus+=3;
+ if(data.internal==="si")bonus+=2;
+ if(data.head==="si")bonus+=4;
+ if(data.shake==="si")bonus-=4;
+
+ const base=(levelBase[data.level]||115)+bonus;
+
+ // LOS TRES PERFILES SON DIFERENTES
+ const offsets=[0,-9,-18,-28,-42,-12];
+
+ const normal=offsets.map(v=>clamp(base+v));
+ const premium=offsets.map(v=>clamp(base+12+v));
+ const ultra=offsets.map(v=>clamp(base+24+v));
+
+ /* RESULTADOS NORMALES */
+
+ let html="";
+
+ finalText="FREE FIRE SENSITIVITY PRO\n";
+
+ names.forEach((name,i)=>{
+
+  html+=`
+   <div class="value">
+    <div class="valueTop">
+     <span>${name}</span>
+     <strong>${normal[i]}</strong>
+    </div>
+    <div class="track">
+     <div style="width:${normal[i]/2}%"></div>
+    </div>
+   </div>`;
+
+  finalText+=name+": "+normal[i]+"\n";
+ });
+
+ document.getElementById("values").innerHTML=html;
+
+ document.getElementById("summary").innerHTML=`
+  <div class="config">
+   <span>Dispositivo</span>
+   <strong>${safe(data.brand)} ${safe(data.model)}</strong>
+  </div>
+  <div class="config">
+   <span>Sistema</span>
+   <strong>${safe(data.device)}</strong>
+  </div>
+  <div class="config">
+   <span>Versión</span>
+   <strong>${safe(data.game)}</strong>
+  </div>
+  <div class="config">
+   <span>Dedos</span>
+   <strong>${safe(data.fingers)}</strong>
+  </div>
+  <div class="config">
+   <span>Nivel</span>
+   <strong>${safe(data.level)}</strong>
+  </div>`;
+
+ document.getElementById("fireResult").innerHTML=`
+  <div class="notice" style="text-align:center">
+   <h3>🔫 BOTÓN DE DISPARO</h3>
+   <div class="firebutton">🔫</div>
+   <h2>${safe(data.fire)}%</h2>
+  </div>`;
+
+ if(data.dpi==="si"){
+  document.getElementById("dpiResult").innerHTML=`
+   <div class="dpi">
+    DPI SELECCIONADO
+    <strong>${safe(data.dpiValue)}</strong>
+   </div>`;
+ }else{
+  document.getElementById("dpiResult").innerHTML="";
+ }
+
+ document.getElementById("internalResult").innerHTML=
+  data.internal==="si"?`
+   <h3 style="color:#ff2866;margin-top:20px">⚙️ CONFIGURACIÓN INTERNA</h3>
+   <div class="config">
+    <span>Gráficos</span>
+    <strong>Suave si priorizas rendimiento</strong>
+   </div>
+   <div class="config">
+    <span>FPS</span>
+    <strong>Alto si está disponible</strong>
+   </div>
+   <div class="config">
+    <span>Precisión de mira</span>
+    <strong>Predeterminada</strong>
+   </div>`:"";
+
+ finalText+="Dispositivo: "+data.brand+" "+data.model+"\n";
+ finalText+="Sistema: "+data.device+"\n";
+ finalText+="Nivel: "+data.level+"\n";
+ finalText+="Juego: "+data.game+"\n";
+ finalText+="Dedos: "+data.fingers+"\n";
+ finalText+="Botón: "+data.fire+"%\n";
+ finalText+="DPI: "+(data.dpi==="si"?data.dpiValue:"Sin DPI")+"\n\n";
+
+ /* PREMIUM */
+
+ premiumText="FREE FIRE - SENSIBILIDAD PREMIUM\n";
+ premiumText+="Dispositivo: "+data.brand+" "+data.model+"\n";
+ premiumText+="Juego: "+data.game+"\n\n";
+
+ let premiumHTML="";
+
+ names.forEach((name,i)=>{
+
+  premiumHTML+=`
+   <div class="premium-value">
+    <div class="premium-value-top">
+     <span>${name}</span>
+     <strong>${premium[i]}</strong>
+    </div>
+    <div class="premium-track">
+     <div style="width:${premium[i]/2}%"></div>
+    </div>
+   </div>`;
+
+  premiumText+=name+": "+premium[i]+"\n";
+ });
+
+ premiumHTML+=`
+  <div class="premium-value">
+   <div class="premium-value-top">
+    <span>🔫 Botón de disparo</span>
+    <strong>${safe(data.fire)}%</strong>
+   </div>
+  </div>`;
+
+ premiumText+="Botón de disparo: "+data.fire+"%\n";
+
+ if(data.dpi==="si"){
+  premiumHTML+=`
+   <div class="premium-value">
+    <div class="premium-value-top">
+     <span>⚙️ DPI seleccionado</span>
+     <strong>${safe(data.dpiValue)}</strong>
+    </div>
+   </div>`;
+
+  premiumText+="DPI: "+data.dpiValue+"\n";
+ }
+
+ document.getElementById("premiumValues").innerHTML=premiumHTML;
+
+ /* ULTRA */
+
+ ultraText="FREE FIRE - ULTRA SUPER PREMIUM\n";
+ ultraText+="Dispositivo: "+data.brand+" "+data.model+"\n";
+ ultraText+="Juego: "+data.game+"\n\n";
+
+ let ultraHTML="";
+
+ names.forEach((name,i)=>{
+
+  ultraHTML+=`
+   <div class="ultra-value">
+    <div class="ultra-value-top">
+     <span>${name}</span>
+     <strong>${ultra[i]}</strong>
+    </div>
+    <div class="ultra-track">
+     <div style="width:${ultra[i]/2}%"></div>
+    </div>
+   </div>`;
+
+  ultraText+=name+": "+ultra[i]+"\n";
+ });
+
+ ultraHTML+=`
+  <div class="ultra-value">
+   <div class="ultra-value-top">
+    <span>🔫 Botón de disparo</span>
+    <strong>${safe(data.fire)}%</strong>
+   </div>
+  </div>`;
+
+ ultraText+="Botón de disparo: "+data.fire+"%\n";
+
+ if(data.dpi==="si"){
+  ultraHTML+=`
+   <div class="ultra-value">
+    <div class="ultra-value-top">
+     <span>⚙️ DPI seleccionado</span>
+     <strong>${safe(data.dpiValue)}</strong>
+    </div>
+   </div>`;
+
+  ultraText+="DPI: "+data.dpiValue+"\n";
+ }
+
+ document.getElementById("ultraValues").innerHTML=ultraHTML;
+}
+
+/* SEGURIDAD DE TEXTO */
+
+function safe(value){
+ const div=document.createElement("div");
+ div.textContent=String(value??"");
+ return div.innerHTML;
+}
+
+/* PANTALLAS */
+
+function activatePremium(){
+ document.getElementById("premiumScreen").style.display="block";
+}
+
+function closePremium(){
+ document.getElementById("premiumScreen").style.display="none";
+}
+
+function activateUltra(){
+ document.getElementById("premiumScreen").style.display="none";
+ document.getElementById("ultraScreen").style.display="block";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function closeUltra(){
+ document.getElementById("ultraScreen").style.display="none";
+ document.getElementById("premiumScreen").style.display="block";
+}
+
+function showADB(){
+ document.getElementById("ultraScreen").style.display="none";
+ document.getElementById("adbScreen").style.display="block";
+}
+
+function closeADB(){
+ document.getElementById("adbScreen").style.display="none";
+ document.getElementById("ultraScreen").style.display="block";
+}
+
+function goHome(){
+ location.reload();
+}
+
+/* COPIAR */
+
+function copyText(text,message){
+
+ if(navigator.clipboard&&window.isSecureContext){
+  navigator.clipboard.writeText(text)
+   .then(()=>alert(message))
+   .catch(()=>fallbackCopy(text,message));
+ }else{
+  fallbackCopy(text,message);
+ }
+}
+
+function fallbackCopy(text,message){
+
+ const t=document.createElement("textarea");
+ t.value=text;
+
+ document.body.appendChild(t);
+ t.select();
+
+ try{
+  document.execCommand("copy");
+  alert(message);
+ }catch(e){
+  alert("No se pudo copiar automáticamente.");
+ }
+
+ t.remove();
+}
+
+function copyResult(){
+ copyText(finalText,"¡Configuración normal copiada!");
+}
+
+function copyPremium(){
+ copyText(premiumText,"¡Sensibilidad PREMIUM copiada! 👑");
+}
+
+function copyUltra(){
+ copyText(ultraText,"¡Sensibilidad ULTRA SUPER PREMIUM copiada! 🔥");
+}
+
+function copyCommand(id){
+ const command=document.getElementById(id).textContent.trim();
+ copyText(command,"¡Comando copiado! Pégalo en Brevent.");
+}
+
+update();
+</script>
+
+</body>
+</html>
